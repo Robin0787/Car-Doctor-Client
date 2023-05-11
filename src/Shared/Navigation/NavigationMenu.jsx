@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from "../../assets/logo.svg";
 const NavigationMenu = () => {
     const navItems = <>
-        <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/home'}>Home</Link>
+        <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/'}>Home</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/about'}>About</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/services'}>Services</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/blog'}>Blog</Link>

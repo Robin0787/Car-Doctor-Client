@@ -9,7 +9,7 @@ import img5 from "../../../assets/images/banner/6.jpg";
 
 const Banner = () => {
     return (
-        <div className="carousel w-full rounded-lg lg:h-[80vh] mt-3">
+        <div className="carousel w-full rounded-lg lg:h-[80vh] mt-3 mb-10 md:mb-20">
                 <div id="slide1" className="carousel-item relative w-full">
                     <img src={img1} className="w-full object-cover" />
                     <div className="absolute top-0 text-white h-full">
