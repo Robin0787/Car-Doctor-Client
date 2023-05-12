@@ -66,6 +66,10 @@ const Login = () => {
                 toast.success('Password reset Email sent');
             })
         }
+        else if (email.length < 1) {
+            toast.error('Write your email first');
+            emailRef.current.focus();
+        }
         else {
             toast.error("Invalid Email");
         }

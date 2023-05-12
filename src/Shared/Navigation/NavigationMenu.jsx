@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { authContext } from '../../AuthProvider/AuthProvider';
 import logo from "../../assets/logo.svg";
 const NavigationMenu = () => {
+    const { user,logout } = useContext(authContext);
     const navItems = <>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/'}>Home</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/about'}>About</Link>
@@ -9,6 +13,11 @@ const NavigationMenu = () => {
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/blog'}>Blog</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/contact'}>Contact</Link>
     </>
+    function handleLogout () {
+        logout()
+        .then(() => {toast.success('Logout Successful')})
+    }
+    console.log(user);
     return (
         <div className="navbar bg-white">
             <div className="navbar-start">
@@ -25,13 +34,13 @@ const NavigationMenu = () => {
                     <img src={logo} alt="" className='h-20 w-20 mx-4 lg:mx-0' />
                 </Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden lg:flex -ml-20">
                 <ul className="menu menu-horizontal px-1">
-                   {navItems}
+                    {navItems}
                 </ul>
             </div>
-            <div className="navbar-end space-x-3">
-                <div className='flex'>
+            <div className="navbar-end space-x-5">
+                <div className='flex items-center gap-2'>
                     <button className="btn btn-ghost btn-circle">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </button>
@@ -41,6 +50,26 @@ const NavigationMenu = () => {
                             <span className="badge badge-xs badge-primary indicator-item"></span>
                         </div>
                     </button>
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                            <div className="rounded-full">
+                                {
+                                    user ? <img src={user.photoURL} className='h-6 w-6'/> : <FaUserCircle className='h-8 w-8' />
+                                }
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu bg-white border menu-compact dropdown-content mt-3 p-2 shadow rounded-box md:w-52">
+                            {
+                                user ?
+                                    <>
+                                        <li><a>{user.displayName}</a></li>
+                                        <li onClick={handleLogout}><a>Log Out</a></li>
+                                    </>
+                                    :
+                                    <li><Link to={'/login'}>Login</Link></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
                 <Link to={'/'} className="py-1 px-2 md:py-2 md:px-4 border border-orange-600 text-[#FF3811] rounded-md font-semibold hidden md:block">Appointment</Link>
             </div>

@@ -4,10 +4,10 @@ import Service from './Service/Service';
 const Services = () => {
     const [services, setServices] = useState([]);
     useEffect(() => {
-        fetch('services.json')
+        fetch('http://localhost:2000/services')
         .then(res => res.json())
-        .then(data => setServices(data))
-    },[]);
+        .then(data => setServices(data));
+    }, []);
     return (
         <section className='my-20'>
             <article className='text-center space-y-3'>
