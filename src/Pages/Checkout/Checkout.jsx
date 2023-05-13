@@ -25,7 +25,7 @@ const Checkout = () => {
         .then(res => res.json())
         .then(data => {
             if(data.insertedId) {
-                toast.success('Order Proceed');
+                toast.success('Added to bookings');
                 form.reset();
             }
         });
@@ -59,7 +59,7 @@ const Checkout = () => {
                 <textarea type="text" name='message' className='w-full p-3 bg-gray-200 focus:bg-white rounded-md focus:ring-4 focus:outline-0 ring-gray-200 duration-300 placeholder:text-sm placeholder:text-gray-500' placeholder='You Message' cols={10} rows={6}/>
                 </div>
                 <div>
-                <button type='submit' className='w-full p-3 text-md rounded-md text-white bg-gradient-to-r from-[#ff3811] to-[#f53218] bg-[#ff3811]'>Order Confirm</button>
+                <button type='submit' className='w-full p-3 text-md rounded-md text-white bg-gradient-to-r from-[#ff3811] to-[#f53218] bg-[#ff3811]'>Add To Bookings</button>
                 </div>
                 </form>
             </article>

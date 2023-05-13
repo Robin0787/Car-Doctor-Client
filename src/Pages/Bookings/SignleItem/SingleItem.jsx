@@ -2,25 +2,25 @@ import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
-const SingleItem = ({ item, deleteBooking }) => {
-    const { _id, title, img, price, service_id, name, email, phone, date, message } = item;
+const SingleItem = ({ item, deleteBooking, handleConfirm }) => {
+    const { _id, title, img, price, service_id, name, email, phone, date, message, status } = item;
     function handleDelete() {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    deleteBooking(_id);
-                }
-            })
+        .then((result) => {
+            if (result.isConfirmed) {
+                deleteBooking(_id);
+            }
+        })
     }
-    
+
+   
     return (
         <div className='flex flex-col md:flex-row justify-between md:items-center '>
 
@@ -41,7 +41,7 @@ const SingleItem = ({ item, deleteBooking }) => {
                 <p className='text-md font-semibold'>${price}</p>
                 <p className='text-md font-semibold'>{date}</p>
             </div>
-            <button className='py-2 px-4 text-white rounded-md bg-[#ff3811] mt-3 md:mt-0'>Pending</button>
+            <button onClick={() => handleConfirm(_id)} className={`py-2 px-4 text-white rounded-md ${status ? 'bg-[#ff3811]' : 'bg-green-600'}  mt-3 md:mt-0 disabled:cursor-not-allowed disabled:opacity-80`} disabled={status}>{status ? 'Confirmed' : 'Confirm'} </button>
         </div>
     );
 };

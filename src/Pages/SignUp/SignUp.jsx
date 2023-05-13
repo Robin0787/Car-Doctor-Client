@@ -23,7 +23,6 @@ const SignUp = () => {
             signUpWithEmailAndPass(email, password)
                 .then(res => {
                     toast.success('Sign Up Successful');
-                    console.log(res.user);
                     form.reset();
                     setShowEyeIcon(false);
                     updateProfile(res.user, {displayName: name})

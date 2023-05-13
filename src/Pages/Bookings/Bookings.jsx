@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaArrowLeft, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { authContext } from '../../AuthProvider/AuthProvider';
 import CheckoutBanner from '../Checkout/CheckoutBanner/CheckoutBanner';
 import SingleItem from './SignleItem/SingleItem';
@@ -9,34 +10,81 @@ import SingleItem from './SignleItem/SingleItem';
 const Bookings = () => {
     const navigate = useNavigate();
     const [bookingItems, setBookingItems] = useState([]);
-    const {user} = useContext(authContext);
+    const { user } = useContext(authContext);
     useEffect(() => {
         fetch(`http://localhost:2000/bookings?email=${user.email}`)
-        .then(res => res.json())
-        .then(data => {setBookingItems(data)});
+            .then(res => res.json())
+            .then(data => { setBookingItems(data) });
     }, [user]);
 
-    function deleteBooking (id) {
-        console.log(id);
-        fetch(`http://localhost:2000/delete-booking/${id}`, {method: "DELETE"})
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount === 1) {
-                const remaining = bookingItems.filter(item => item._id !== id);
-                setBookingItems(remaining);
-                toast.success('Service Deleted');
-            }
-        })
+    function deleteBooking(id) {
+        fetch(`http://localhost:2000/delete-booking/${id}`, { method: "DELETE" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount === 1) {
+                    const remaining = bookingItems.filter(item => item._id !== id);
+                    setBookingItems(remaining);
+                    toast.success('Service Deleted');
+                }
+            })
 
     }
+
+    function clearCart() {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete!'
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`http://localhost:2000/delete-all-bookings?email=${user.email}`, { method: 'DELETE' })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.deletedCount > 0) {
+                                toast.success(`Deleted ${data.deletedCount} Items`);
+                                setBookingItems([]);
+                            }
+                        });
+                }
+            })
+
+    }
+
+    function handleConfirm (id) {
+        fetch(`http://localhost:2000/update-booking/${id}` , {
+            method: 'PATCH',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({status: 'Confirm'})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount > 0) {
+                const remaining = bookingItems.filter(item => item._id !== id);
+                const updated = bookingItems.find(item => item._id === id);
+                updated.status = 'Confirmed';
+                const newBookings = [updated,...remaining];
+                setBookingItems(newBookings);
+                toast.success('Confirmed');
+            }
+        })
+    }
+    
     return (
         <section>
             <article className='mt-5 mb-20'>
-                <CheckoutBanner title={'All Bookings'} path={'Home/Bookings'}/>
+                <CheckoutBanner title={'All Bookings'} path={'Home/Bookings'} />
             </article>
             <article className='space-y-10'>
-                {
-                    bookingItems.map((item) => <SingleItem key={item._id} item={item} deleteBooking={deleteBooking}/>)
+                {bookingItems.length > 0 ?
+                    bookingItems.map((item) => <SingleItem key={item._id} item={item} deleteBooking={deleteBooking} handleConfirm={handleConfirm}/>)
+                    :
+                    <h2 className='text-center text-3xl font-semibold py-10'>No service has been added to the booking!</h2>
                 }
             </article>
             <article className='flex justify-between items-center mt-10 pl-14'>
@@ -44,10 +92,12 @@ const Bookings = () => {
                     <FaArrowLeft />
                     <p>Continue shopping</p>
                 </div>
-                <div className='flex gap-2 items-center cursor-pointer hover:text-[#ff3811] duration-300'>
+                {
+                    bookingItems.length > 0 && <div onClick={clearCart} className='flex gap-2 items-center cursor-pointer hover:text-[#ff3811] duration-300'>
                     <FaTrashAlt />
                     <p>Clear shopping cart</p>
                 </div>
+                }
             </article>
         </section>
     );
