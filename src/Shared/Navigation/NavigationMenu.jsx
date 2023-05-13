@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { toast } from 'react-hot-toast';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { authContext } from '../../AuthProvider/AuthProvider';
@@ -11,13 +10,11 @@ const NavigationMenu = () => {
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/about'}>About</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/services'}>Services</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/blog'}>Blog</Link>
-        <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/contact'}>Contact</Link>
+        <Link to={'/bookings'} className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' >Bookings</Link>
     </>
     function handleLogout () {
         logout()
-        .then(() => {toast.success('Logout Successful')})
     }
-    console.log(user);
     return (
         <div className="navbar bg-white">
             <div className="navbar-start">
@@ -54,7 +51,7 @@ const NavigationMenu = () => {
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="rounded-full">
                                 {
-                                    user ? <img src={user.photoURL} className='h-6 w-6'/> : <FaUserCircle className='h-8 w-8' />
+                                    user ? (user.photoURL ? <img src={user.photoURL} className='h-6 w-6'/> : <FaUserCircle className='h-8 w-8' />) : <FaUserCircle className='h-8 w-8' />
                                 }
                             </div>
                         </label>

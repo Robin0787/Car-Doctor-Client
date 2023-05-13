@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Service = ({ service }) => {
     const {_id, service_id, img, price, title } = service;
-    console.log(service);
     return (
         <div className="card p-5 gap-6 border-0 shadow-lg duration-500 hover:scale-105">
             <figure><img src={img} alt="car!" className='rounded-md h-52' /></figure>

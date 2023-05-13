@@ -11,6 +11,9 @@ export default {
         "footerCol": '2fr 1fr 1fr 1fr 1fr'
       },
     },
+    backgroundImage: {
+      "checkoutBanner": "url('/src/assets/images/checkout/checkout.png')"
+    },
   },
   plugins: [require('daisyui')],
 }

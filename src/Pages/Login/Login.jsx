@@ -2,7 +2,7 @@
 import React, { useContext, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../AuthProvider/AuthProvider';
 import NavigationMenu from '../../Shared/Navigation/NavigationMenu';
 import loginImg from "../../assets/images/login/login.svg";
@@ -12,7 +12,10 @@ const Login = () => {
     const [showEye, setShowEye] = useState(false);
     const  {continueWithGoogle, continueWithGithub, loginWithEmailAndPass,resetPass} = useContext(authContext);
     const emailRef = useRef(null);
-
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname;
+    
     function handleLogin (e) {
         e.preventDefault();
         const form = e.target;
@@ -23,6 +26,7 @@ const Login = () => {
             toast.success('Login Successful');
             form.reset();
             setShowEye(false);
+            navigate(from, {replace: true});
         })
         .catch(err => {
             toast.error(err.message.slice(22, -2).replace(/-/g, " "));
@@ -33,6 +37,7 @@ const Login = () => {
         continueWithGoogle()
         .then(result => {
             toast.success('SignUp Successful');
+            navigate(from, {replace: true});
         })
         .catch(err => {
             toast.error('Something wrong! Check Console');
@@ -43,6 +48,7 @@ const Login = () => {
         continueWithGithub()
         .then(res => {
             toast.success('Sign Up Successful');
+            navigate(from, {replace: true});
         })
         .catch(err => {
             toast.error('Something wrong! Check Console');
@@ -120,7 +126,7 @@ const Login = () => {
                             <p onClick={handleGoogleSignUp} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-blue-500'><FaGoogle className='h-5 w-5 hover:scale-110 duration-500'/></p>
                         </div>
                         <div>
-                            <p className="text-sm text-center text-gray-600">Already have an account? <Link to={'/signUp'} className='text-[#FF3811]'>Login</Link></p>
+                            <p className="text-sm text-center text-gray-600">Don't have an account? <Link to={'/signUp'} className='text-[#FF3811]'>SignUp</Link></p>
                         </div>
                     </form>
                 </div>

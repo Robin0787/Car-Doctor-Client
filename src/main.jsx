@@ -7,10 +7,10 @@ import routes from './Routes/Routes'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <>
     <AuthProvider>
     <RouterProvider router={routes}/>
     </AuthProvider>
     <Toaster />
-  </React.StrictMode>,
+  </>,
 )

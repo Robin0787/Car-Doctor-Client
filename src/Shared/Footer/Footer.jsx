@@ -5,8 +5,8 @@ const Footer = () => {
         <section className='bg-black text-gray-200 py-24 mt-20 lg:mt-28'>
             <article className='w-[80%] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-footerCol gap-12 '>
                 <div className='space-y-5'>
-                    <h2 className="text-2xl font-bold">Your Jobs</h2>
-                    <p className="text-md text-left  text-gray-400 w-[70%]">Explore thousands of job opportunities with all the information you need.</p>
+                    <h2 className="text-2xl font-bold">Car Doctor</h2>
+                    <p className="text-md text-left  text-gray-400 w-[70%]">Explore all the services for making your car better</p>
                     <img src={footerIcon} className='h-10' />
                 </div>
                 <div className='space-y-5'>
@@ -46,8 +46,8 @@ const Footer = () => {
             </article>
             <hr className='border-gray-800 my-10 w-[80%] mx-auto'/>
             <div className='w-[80%] mx-auto flex justify-between items-center text-sm text-gray-400'>
-                <p>@2023 YourJobs. All Rights Reserved</p>
-                <p>Powered by Your Jobs</p>
+                <p>@2023 CarDoctor. All Rights Reserved</p>
+                <p>Powered by Car Doctor</p>
             </div>
         </section>
     );
