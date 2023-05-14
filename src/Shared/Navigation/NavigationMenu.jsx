@@ -9,7 +9,6 @@ const NavigationMenu = () => {
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/'}>Home</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/about'}>About</Link>
         <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/services'}>Services</Link>
-        <Link className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' to={'/blog'}>Blog</Link>
         <Link to={'/bookings'} className='hover:text-[#FF3811] duration-300 p-2 lg:px-4 font-semibold' >Bookings</Link>
     </>
     function handleLogout () {
@@ -68,7 +67,7 @@ const NavigationMenu = () => {
                         </ul>
                     </div>
                 </div>
-                <Link to={'/'} className="py-1 px-2 md:py-2 md:px-4 border border-orange-600 text-[#FF3811] rounded-md font-semibold hidden md:block">Appointment</Link>
+                <Link to={'/'} className="py-1 px-2 md:py-2 md:px-4 border border-orange-600 text-[#FF3811] rounded-md hover:bg-[#ff3811] duration-500 hover:text-white font-semibold hidden md:block">Appointment</Link>
             </div>
         </div>
     );
