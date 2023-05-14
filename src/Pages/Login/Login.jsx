@@ -14,7 +14,7 @@ const Login = () => {
     const emailRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
-    const from = location.state?.from?.pathname;
+    const from = location.state?.from?.pathname || '/';
     
     function handleLogin (e) {
         e.preventDefault();
@@ -36,7 +36,7 @@ const Login = () => {
     function handleGoogleSignUp () {
         continueWithGoogle()
         .then(result => {
-            toast.success('SignUp Successful');
+            toast.success('Login Successful');
             navigate(from, {replace: true});
         })
         .catch(err => {
@@ -47,7 +47,7 @@ const Login = () => {
     function handleGithubSignUp () {
         continueWithGithub()
         .then(res => {
-            toast.success('Sign Up Successful');
+            toast.success('Login Successful');
             navigate(from, {replace: true});
         })
         .catch(err => {

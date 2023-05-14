@@ -2,7 +2,7 @@ import { updateProfile } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../AuthProvider/AuthProvider';
 import NavigationMenu from '../../Shared/Navigation/NavigationMenu';
 import loginImg from "../../assets/images/login/login.svg";
@@ -12,8 +12,9 @@ const SignUp = () => {
     const [isPassOk, setIsPassOk] = useState(false);
     const { continueWithGoogle, continueWithGithub, signUpWithEmailAndPass } = useContext(authContext);
     const [validatePass, setValidatePass] = useState('');
+    const navigate = useNavigate();
 
-    function handleLogin(e) {
+    function handleSignUp(e) {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -25,6 +26,7 @@ const SignUp = () => {
                     toast.success('Sign Up Successful');
                     form.reset();
                     setShowEyeIcon(false);
+                    navigate('/');
                     updateProfile(res.user, {displayName: name})
                     .catch((err) => {console.log(err.message)})
                 })
@@ -41,6 +43,7 @@ const SignUp = () => {
         continueWithGoogle()
             .then(result => {
                 toast.success('SignUp Successful');
+                navigate('/');
             })
             .catch(err => {
                 toast.error('Something wrong! Check Console');
@@ -51,6 +54,7 @@ const SignUp = () => {
         continueWithGithub()
             .then(res => {
                 toast.success('Sign Up Successful');
+                navigate('/');
             })
             .catch(err => {
                 toast.error('Something wrong! Check Console');
@@ -98,7 +102,7 @@ const SignUp = () => {
                     <img src={loginImg} alt="" className='h-3/4 mx-auto mt-6 md:mt-14' />
                 </div>
                 <div className='md:w-3/5 lg:w-1/2 my-auto px-0 lg:px-4'>
-                    <form onSubmit={handleLogin} className='shadow-lg rounded-md py-5 px-6 lg:px-14 space-y-4'>
+                    <form onSubmit={handleSignUp} className='shadow-lg rounded-md py-5 px-6 lg:px-14 space-y-4'>
                         <h2 className="text-2xl text-center font-semibold rounded-md my-5">Sign Up</h2>
                         <div className='space-y-2'>
                             <label htmlFor="name" className='text-md'>Name</label><br />
