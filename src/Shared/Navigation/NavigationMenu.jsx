@@ -13,6 +13,7 @@ const NavigationMenu = () => {
     </>
     function handleLogout () {
         logout()
+        .then(() => {localStorage.removeItem('access-token')});
     }
     return (
         <div className="navbar bg-white">

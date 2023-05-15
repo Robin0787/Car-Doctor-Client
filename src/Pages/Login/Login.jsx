@@ -33,18 +33,32 @@ const Login = () => {
             console.log(err.message);
         })
     }
-    function handleGoogleSignUp () {
+    function handleGoogleLogin () {
         continueWithGoogle()
         .then(result => {
             toast.success('Login Successful');
-            navigate(from, {replace: true});
+            fetch(`http://localhost:2000/user-token`, {
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(result.user)
+            })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem('access-token', data.token);
+                setTimeout(() => {
+                    toast.success('After 10 minutes your token will be expired');
+                }, 2000);
+                navigate(from, {replace: true});
+            })
         })
         .catch(err => {
             toast.error('Something wrong! Check Console');
             console.log(err.message);
         })
     }
-    function handleGithubSignUp () {
+    function handleGithubLogin () {
         continueWithGithub()
         .then(res => {
             toast.success('Login Successful');
@@ -122,8 +136,8 @@ const Login = () => {
                         </div>
                         <div className='flex items-center justify-center gap-4'>
                             <p onClick={() => {toast.error('Not Implemented Yet !!')}} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-blue-500'><FaFacebook className='h-5 w-5 hover:scale-110 duration-500'/></p>
-                            <p onClick={handleGithubSignUp} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-gray-800'><FaGithub className='h-5 w-5 hover:scale-110 duration-500'/></p>
-                            <p onClick={handleGoogleSignUp} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-blue-500'><FaGoogle className='h-5 w-5 hover:scale-110 duration-500'/></p>
+                            <p onClick={handleGithubLogin} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-gray-800'><FaGithub className='h-5 w-5 hover:scale-110 duration-500'/></p>
+                            <p onClick={handleGoogleLogin} className='bg-gray-100 hover:bg-gray-200 duration-300 p-3 cursor-pointer rounded-full text-blue-500'><FaGoogle className='h-5 w-5 hover:scale-110 duration-500'/></p>
                         </div>
                         <div>
                             <p className="text-sm text-center text-gray-600">Don't have an account? <Link to={'/signUp'} className='text-[#FF3811]'>SignUp</Link></p>
