@@ -37,21 +37,7 @@ const Login = () => {
         continueWithGoogle()
         .then(result => {
             toast.success('Login Successful');
-            fetch(`http://localhost:2000/user-token`, {
-                method: "POST",
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(result.user)
-            })
-            .then(res => res.json())
-            .then(data => {
-                localStorage.setItem('access-token', data.token);
-                setTimeout(() => {
-                    toast.success('After 10 minutes your token will be expired');
-                }, 2000);
-                navigate(from, {replace: true});
-            })
+            navigate(from, {replace: true});
         })
         .catch(err => {
             toast.error('Something wrong! Check Console');
