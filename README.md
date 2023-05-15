@@ -4,7 +4,7 @@
 
 ##### This website provides around six services for repairing cars.
 
-## Services
+### Services
 
 The following services are featured on this website:
 
@@ -15,15 +15,15 @@ The following services are featured on this website:
 - Automatic Services
 - Electrical System
 
-## User Registration and Login
+### User Registration and Login
 
 To save your booking services on the website, you can create an account by registering and logging in.
 
-## Feedback
+### Feedback
 
 If you have any feedback or questions about our website, please feel free to contact us at mohammadrobin636@gmail.com
 
-## Technologies Used
+### Technologies Used
 
 This website was built using the following technologies:
 
@@ -35,7 +35,7 @@ This website was built using the following technologies:
 - Firebase
 - MongoDB
 
-## Installation
+### Installation
 
 To run this website locally, please follow these steps:
 
@@ -46,7 +46,7 @@ To run this website locally, please follow these steps:
 5. Run the command `npm start` to start the server.
 6. Open your web browser and navigate to `http://localhost:3000`.
 
-## Robin Hossen
+### Robin Hossen
 
 - [Facebook](https://www.facebook.com/robin0787)
 - [LinkedIn](https://www.linkedin.com/in/robin0787/)
