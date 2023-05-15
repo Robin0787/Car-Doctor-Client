@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import app from "../Firebase/Firebase.init";
 export const authContext = createContext(null);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const auth = getAuth(app);
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
@@ -13,7 +13,7 @@ const AuthProvider = ({children}) => {
     const signUpWithEmailAndPass = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     }
-    
+
     const loginWithEmailAndPass = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
@@ -36,11 +36,27 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
             setLoading(false);
+            if (user) {
+                fetch('https://car-doctor-server-ten-xi.vercel.app/user-token', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ user: user.email })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('access-token', data.token);
+                    })
+            }
+            else {
+                localStorage.removeItem('access-token');
+            }
         })
         return () => unsubscribe();
     }, []);
 
-    const authInfo = {user, loading, continueWithGoogle, continueWithGithub, signUpWithEmailAndPass, loginWithEmailAndPass, resetPass,logout};
+    const authInfo = { user, loading, continueWithGoogle, continueWithGithub, signUpWithEmailAndPass, loginWithEmailAndPass, resetPass, logout };
     return (
         <authContext.Provider value={authInfo}>
             {children}

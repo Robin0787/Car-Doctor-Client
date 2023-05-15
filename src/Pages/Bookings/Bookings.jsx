@@ -14,7 +14,7 @@ const Bookings = () => {
     const { user, logout, loading } = useContext(authContext);
 
     useEffect(() => {
-        fetch(`http://localhost:2000/bookings?email=${user.email}`, {
+        fetch(`https://car-doctor-server-ten-xi.vercel.app/bookings?email=${user.email}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('access-token')}`
@@ -24,18 +24,18 @@ const Bookings = () => {
             .then(data => { 
                 if(!data.error) {
                     setBookingItems(data);
-                    toast.success('After 10 minutes your token will be expired');
                 }
                 else {
                     toast.error('Your JWT token is expired!');
                     logout()
                     .then(() => {localStorage.removeItem('access-token')});
+                    navigate('/login');
                 }
             });
     }, [user]);
 
     function deleteBooking(id) {
-        fetch(`http://localhost:2000/delete-booking/${id}`, { method: "DELETE" })
+        fetch(`https://car-doctor-server-ten-xi.vercel.app/delete-booking/${id}`, { method: "DELETE" })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount === 1) {
@@ -57,7 +57,7 @@ const Bookings = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`http://localhost:2000/delete-all-bookings?email=${user.email}`, { method: 'DELETE' })
+                    fetch(`https://car-doctor-server-ten-xi.vercel.app/delete-all-bookings?email=${user.email}`, { method: 'DELETE' })
                         .then(res => res.json())
                         .then(data => {
                             if (data.deletedCount > 0) {
@@ -71,7 +71,7 @@ const Bookings = () => {
     }
 
     function handleConfirm (id) {
-        fetch(`http://localhost:2000/update-booking/${id}` , {
+        fetch(`https://car-doctor-server-ten-xi.vercel.app/update-booking/${id}` , {
             method: 'PATCH',
             headers: {
                 'content-type' : 'application/json'

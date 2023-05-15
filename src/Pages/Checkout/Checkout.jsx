@@ -6,7 +6,8 @@ import CheckoutBanner from './CheckoutBanner/CheckoutBanner';
 const Checkout = () => {
     const {user} = useContext(authContext);
     const { title, price, service_id, _id, img } = useLoaderData();
-    function handleOrderSubmit (e) {
+
+    function handleAddToBookings (e) {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -15,7 +16,7 @@ const Checkout = () => {
         const email = form.email.value;
         const message = form.message.value;
         const bookingInfo = { title, img, price, service_id, name, email, phone, date, message};
-        fetch('http://localhost:2000/bookings', {
+        fetch('https://car-doctor-server-ten-xi.vercel.app/bookings', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -30,13 +31,14 @@ const Checkout = () => {
             }
         });
     }
+    
     return (
         <section>
             <article className='mt-5 mb-20'>
                 <CheckoutBanner title={'Checkout'} path={'Home/Checkout'}/>
             </article>
             <article className='bg-gray-100 p-10 md:p-16 lg:px-32 lg:py-20 rounded-md'>
-                <form className='space-y-5' onSubmit={handleOrderSubmit}>
+                <form className='space-y-5' onSubmit={handleAddToBookings}>
                 <div className='flex flex-col md:flex-row w-full gap-5'>
                     <div className='w-full space-y-5'>
                         <div>
