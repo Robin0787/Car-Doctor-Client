@@ -17,7 +17,7 @@ const Banner = () => {
                             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-5 lg:mb-8 leading-tight">Affordable <br /> Price For Car Servicing</h2>
                             <p className='text-xs md:text-sm mb-2 md:mb-4'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
                             <button className="p-2 lg:py-3 lg:px-6 text-sm lg:text-md bg-[#FF3811] text-white rounded-md font-semibold mr-2 md:mr-5 hover:shadow-xl shadow-white duration-500">Discover More</button>
-                            <button className="lg:py-3 p-2 lg:px-6 text-sm lg:text-md ring-1 ring-white text-white hover:bg-white hover:text-gray-700 rounded-md font-semibold duration-500">Latest Project</button>
+                            <button className="lg:py-3 p-2 lg:px-6 text-sm lg:text-md ring-1 ring-white  bg-white text-gray-700 rounded-md font-semibold">Latest Project</button>
                         </div>
                     </div>
                     <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-2 md:right-10 bottom-0 md:bottom-3 gap-5 text-white">
